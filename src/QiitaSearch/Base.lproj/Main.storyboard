@@ -25,7 +25,7 @@
                             </connections>
                         </searchBar>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="itemCell" id="1jV-gB-274">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="itemCell" id="1jV-gB-274" customClass="ItemTableViewCell" customModule="QiitaSearch" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="72" width="375" height="80"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="1jV-gB-274" id="8QJ-Hw-vta">
@@ -42,6 +42,7 @@
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="title" destination="gTM-94-KJu" id="FZW-zW-vKF"/>
                                     <segue destination="CMN-vr-Y75" kind="show" id="fzj-F7-VB0"/>
                                 </connections>
                             </tableViewCell>
