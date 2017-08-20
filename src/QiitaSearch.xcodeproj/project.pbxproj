@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		2341E3A01F3A77F800FF8436 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2341E39F1F3A77F800FF8436 /* Item.swift */; };
 		2341E3A21F3B422900FF8436 /* ItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2341E3A11F3B422900FF8436 /* ItemTableViewCell.swift */; };
+		2341E3A41F49ADA600FF8436 /* SearchItemTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2341E3A31F49ADA600FF8436 /* SearchItemTableViewController.swift */; };
 		236BFFD21F02872B00BD9D5A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 236BFFD11F02872B00BD9D5A /* AppDelegate.swift */; };
 		236BFFD71F02872B00BD9D5A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 236BFFD51F02872B00BD9D5A /* Main.storyboard */; };
 		236BFFD91F02872B00BD9D5A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 236BFFD81F02872B00BD9D5A /* Assets.xcassets */; };
@@ -29,6 +30,7 @@
 /* Begin PBXFileReference section */
 		2341E39F1F3A77F800FF8436 /* Item.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Item.swift; path = model/Item.swift; sourceTree = "<group>"; };
 		2341E3A11F3B422900FF8436 /* ItemTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemTableViewCell.swift; sourceTree = "<group>"; };
+		2341E3A31F49ADA600FF8436 /* SearchItemTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchItemTableViewController.swift; sourceTree = "<group>"; };
 		236BFFCE1F02872B00BD9D5A /* QiitaSearch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QiitaSearch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		236BFFD11F02872B00BD9D5A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		236BFFD61F02872B00BD9D5A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -94,6 +96,7 @@
 				236BFFDA1F02872B00BD9D5A /* LaunchScreen.storyboard */,
 				236BFFDD1F02872B00BD9D5A /* Info.plist */,
 				2341E3A11F3B422900FF8436 /* ItemTableViewCell.swift */,
+				2341E3A31F49ADA600FF8436 /* SearchItemTableViewController.swift */,
 			);
 			path = QiitaSearch;
 			sourceTree = "<group>";
@@ -213,6 +216,7 @@
 			files = (
 				2341E3A01F3A77F800FF8436 /* Item.swift in Sources */,
 				2341E3A21F3B422900FF8436 /* ItemTableViewCell.swift in Sources */,
+				2341E3A41F49ADA600FF8436 /* SearchItemTableViewController.swift in Sources */,
 				236BFFD21F02872B00BD9D5A /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
