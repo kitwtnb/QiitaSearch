@@ -6,87 +6,115 @@
 import UIKit
 
 class SearchItemTableViewController: UITableViewController, UISearchBarDelegate {
-
+    private var items = [Item]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
+    // MARK: - Search bar delegte
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        guard let inputText = searchBar.text else {
+            return
+        }
+        
+        guard 0 < inputText.lengthOfBytes(using: String.Encoding.utf8) else {
+            return
+        }
+        
+        items.removeAll()
+        
+        let url = createRequestUrl(query: inputText)
+        request(requestUrl: url)
+        
+        searchBar.resignFirstResponder()
+    }
+    
+    func createRequestUrl(query: String) -> String {
+        return "http://qiita.com/api/v2/tags/\(query)/items"
+    }
+    
+    func request(requestUrl: String) {
+        guard let url = URL(string: requestUrl) else {
+            return
+        }
+        
+        let request = URLRequest(url: url)
+        
+        let session = URLSession.shared
+        let task = session.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
+            guard error == nil else {
+                let alert = UIAlertController(title: "error", message: error?.localizedDescription, preferredStyle: UIAlertControllerStyle.alert)
+                DispatchQueue.main.async {
+                    self.present(alert, animated: true, completion: nil)
+                }
+                
+                return
+            }
+            
+            guard let data = data else {
+                return
+            }
+            
+            guard let jsonArray = try! JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments) as? NSArray else {
+                return
+            }
+            
+            self.parseItems(jsonArray: jsonArray)
+            
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
+        
+        task.resume()
+    }
+    
+    func parseItems(jsonArray: NSArray) {
+        for json in jsonArray {
+            guard let json = json as? NSDictionary else {
+                break
+            }
+            
+            let title = json["title"] as! String
+            let url = json["url"] as! String
+            let item = Item(title: title, url: url)
+            self.items.append(item)
+        }
+    }
+    
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+        return items.count
     }
 
-    /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "itemCell", for: indexPath) as? ItemTableViewCell else {
+            return UITableViewCell()
+        }
+        
+        let item = items[indexPath.row]
+        cell.title.text = item.title
+        cell.url = item.url
 
         return cell
     }
-    */
 
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        if let cell = sender as? ItemTableViewCell {
+            // todo
+        }
     }
-    */
-
 }
