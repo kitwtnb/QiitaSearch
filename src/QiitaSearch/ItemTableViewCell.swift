@@ -8,7 +8,7 @@ import UIKit
 class ItemTableViewCell: UITableViewCell {
     @IBOutlet weak var title: UILabel!
     
-    private var url: String?
+    var url: String?
     
     override func awakeFromNib() {
         super.awakeFromNib()
